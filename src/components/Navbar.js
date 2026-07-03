@@ -40,7 +40,7 @@ export default function Navbar() {
                 href={item.href}
                 className="group relative font-body text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-paper"
               >
-                <span className="mr-1 text-gold/70">0{i + 1}</span>
+                
                 {item.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
               </a>

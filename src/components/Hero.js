@@ -1,120 +1,105 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { useEffect } from "react";
 import { profile } from "@/data/content";
 
-const letterVariants = {
-  hidden: { opacity: 0, y: 60 },
-  show: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.5 + i * 0.05, duration: 0.8, ease: [0.22, 1, 0.36, 1] },
-  }),
-};
+const tech = ["React", "Next.js", "Node", "MongoDB", "ASP.NET", "Tailwind", "Framer Motion"];
 
 export default function Hero() {
-  const name = profile.name.toUpperCase();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const smoothX = useSpring(mouseX, { stiffness: 120, damping: 25 });
+  const smoothY = useSpring(mouseY, { stiffness: 120, damping: 25 });
+
+  const rotateX = useSpring(0, { stiffness: 80, damping: 20 });
+  const rotateY = useSpring(0, { stiffness: 80, damping: 20 });
+
+  useEffect(() => {
+    const move = (e) => {
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
+      const x = (e.clientX / window.innerWidth - 0.5) * 10;
+      const y = (e.clientY / window.innerHeight - 0.5) * 10;
+      rotateY.set(x);
+      rotateX.set(-y);
+    };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, []);
 
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6"
-    >
-      {/* ambient light leaks */}
-      <div className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-gold/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-teal/10 blur-[120px]" />
+    <section id="home" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#0a0a0a] px-6 text-white">
+      
+      {/* --- BACKGROUND LAYER --- */}
+      <div className="absolute inset-0 overflow-hidden">
+        <motion.div animate={{ x: [0, 120, -80, 0], y: [0, -60, 60, 0] }} transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }} className="absolute left-1/4 top-0 h-[700px] w-[700px] rounded-full bg-yellow-400/10 blur-[180px]" />
+        <motion.div animate={{ x: [0, -120, 90, 0], y: [0, 80, -70, 0] }} transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }} className="absolute right-0 bottom-0 h-[650px] w-[650px] rounded-full bg-cyan-400/10 blur-[180px]" />
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="mb-6 flex items-center gap-3 rounded-full border border-line px-4 py-1.5 font-body text-[11px] uppercase tracking-[0.3em] text-muted"
-      >
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-gold" />
-        Now Screening
-      </motion.div>
+        <motion.div style={{ left: smoothX, top: smoothY }} className="pointer-events-none absolute h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-[120px]" />
+        
+        <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: `linear-gradient(to right,#ffffff 1px,transparent 1px), linear-gradient(to bottom,#ffffff 1px,transparent 1px)`, backgroundSize: "80px 80px" }} />
+        <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/asfalt-dark.png')" }} />
+        
+        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 0.03 }} transition={{ delay: 1 }} className="absolute inset-0 flex items-center justify-center whitespace-nowrap font-black uppercase tracking-tight text-[18vw] select-none">
+          FULL STACK
+        </motion.h1>
 
-      <h1 className="flex flex-wrap justify-center gap-x-4 text-center font-display text-[13vw] font-bold leading-[0.95] tracking-tight text-paper sm:text-[9vw] lg:text-[7.5vw]">
-        {name.split(" ").map((word, wi) => (
-          <span key={wi} className="flex overflow-hidden">
-            {word.split("").map((char, ci) => (
-              <motion.span
-                key={ci}
-                custom={wi * 4 + ci}
-                variants={letterVariants}
-                initial="hidden"
-                animate="show"
-                className="inline-block"
-              >
-                {char}
-              </motion.span>
-            ))}
-          </span>
+        {/* Rotating Rings */}
+        <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 70, ease: "linear" }} className="absolute left-1/2 top-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+        <motion.div animate={{ rotate: -360 }} transition={{ repeat: Infinity, duration: 120, ease: "linear" }} className="absolute left-1/2 top-1/2 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/5" />
+
+        {/* Particles */}
+        {Array.from({ length: 20 }).map((_, i) => (
+          <motion.span key={i} className="absolute h-1 w-1 rounded-full bg-white/30" initial={{ x: Math.random() * 1600, y: Math.random() * 900, opacity: 0 }} animate={{ y: [Math.random() * 900, Math.random() * 900 - 200], opacity: [0, 1, 0] }} transition={{ duration: 5 + Math.random() * 6, repeat: Infinity, delay: Math.random() * 4 }} />
         ))}
-      </h1>
+        
+        <div className="absolute inset-0" style={{ background: "radial-gradient(circle at center,transparent 20%,rgba(0,0,0,.65) 100%)" }} />
+      </div>
 
-      <motion.div
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ delay: 1.4, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className="mt-6 h-px w-40 origin-center bg-gradient-to-r from-transparent via-gold to-transparent sm:w-64"
-      />
+      {/* --- CONTENT LAYER --- */}
+      <motion.div style={{ rotateX, rotateY, transformStyle: "preserve-3d" }} className="relative z-20 flex flex-col items-center">
+        <h1 className="text-[12vw] font-black uppercase leading-none tracking-tighter">{profile.name}</h1>
+        <p className="mt-6 text-xl uppercase tracking-[0.5em] text-yellow-400">{profile.role}</p>
 
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.7 }}
-        className="mt-6 max-w-xl text-center font-body text-sm uppercase tracking-[0.35em] text-gold"
-      >
-        {profile.role}
-      </motion.p>
+        {/* Premium CTA */}
+        <div className="mt-10 flex gap-4">
+           <a href="#work" className="relative overflow-hidden rounded-full border border-white/20 bg-white/5 px-8 py-4 font-bold uppercase transition-all hover:bg-white/10">
+             <motion.span animate={{ x: ["-100%", "250%"] }} transition={{ repeat: Infinity, duration: 3 }} className="absolute inset-0 w-1/3 bg-white/20 blur-xl skew-x-[-25deg]" />
+             View Work
+           </a>
+        </div>
 
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.8, duration: 0.7 }}
-        className="mt-4 max-w-md text-center font-body text-base text-muted"
-      >
-        {profile.tagline}
-      </motion.p>
-
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 0.7 }}
-        className="mt-10 flex flex-wrap items-center justify-center gap-4"
-      >
-        <a
-          href="#work"
-          className="rounded-full bg-gold px-7 py-3 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink transition-transform hover:scale-105"
-        >
-          View The Work
-        </a>
-        <a
-          href="#contact"
-          className="rounded-full border border-line px-7 py-3 font-body text-xs uppercase tracking-[0.2em] text-paper transition-colors hover:border-gold hover:text-gold"
-        >
-          Get In Touch
-        </a>
+        {/* Glass Card */}
+        <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.4, duration: 0.8 }} whileHover={{ scale: 1.04, y: -8 }} className="mt-20 rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-6 shadow-2xl">
+          <div className="flex items-center justify-between gap-10">
+            <div>
+              <p className="text-xs uppercase tracking-[.4em] text-yellow-400">CURRENT STACK</p>
+              <h2 className="mt-3 font-semibold">React • Next • Node • MongoDB</h2>
+            </div>
+            <div className="h-16 w-px bg-white/10"/>
+            <div>
+              <p className="text-xs uppercase tracking-[.4em] text-yellow-400">STATUS</p>
+              <h2 className="mt-3 text-green-400">Available For Work</h2>
+            </div>
+          </div>
+        </motion.div>
       </motion.div>
 
-      <motion.a
-        href="#about"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2.4, duration: 0.8 }}
-        className="absolute bottom-10 flex flex-col items-center gap-2 text-muted"
-        aria-label="Scroll to About section"
-      >
-        <span className="font-body text-[10px] uppercase tracking-[0.3em]">Scroll</span>
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ChevronDown size={18} />
-        </motion.span>
-      </motion.a>
+      {/* Floating Tech Pills */}
+      <div className="pointer-events-none absolute inset-0">
+        {tech.map((item, index) => (
+          <motion.div key={item} animate={{ opacity: 0.5, y: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 5 + index, delay: index }} className={`absolute rounded-full border border-white/10 bg-white/5 backdrop-blur-xl px-5 py-2 text-xs ${index===0&&"top-40 left-10"} ${index===1&&"top-72 right-16"} ${index===2&&"bottom-40 left-20"} ${index===3&&"bottom-52 right-24"} ${index===4&&"top-24 right-1/3"} ${index===5&&"bottom-28 left-1/2"} ${index===6&&"top-1/2 right-8"}`}>
+            {item}
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Light Sweep & Cursor Glow */}
+      <motion.div animate={{ x: ["-100%", "200%"] }} transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }} className="pointer-events-none absolute inset-0 w-[35%] skew-x-[-20deg] bg-gradient-to-r from-transparent via-white/10 to-transparent blur-2xl" />
+      <motion.div style={{ left: smoothX, top: smoothY }} className="pointer-events-none absolute h-24 w-24 rounded-full bg-yellow-300/20 blur-3xl -translate-x-1/2 -translate-y-1/2" />
     </section>
   );
 }

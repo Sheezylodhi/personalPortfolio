@@ -2,133 +2,53 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, Send, ArrowUpRight } from "lucide-react";
-import { profile } from "@/data/content";
+import { Send } from "lucide-react";
 import Reveal from "@/components/Reveal";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState("idle"); // idle | sent
+  const [status, setStatus] = useState("idle");
 
-  function handleChange(e) {
-    setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-  }
-
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // Wire this up to your form backend of choice (Formspree, Resend, EmailJS, etc.)
-    // For now it opens the user's mail client pre-filled with the message.
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name}`);
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
-    setStatus("sent");
+    setStatus("loading");
+    const formData = new FormData(e.target);
+    
+    // Yahan hum API call karenge
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    if (response.ok) setStatus("sent");
   }
 
   return (
-    <section id="contact" className="relative py-28 lg:py-36">
-      <div className="mx-auto max-w-5xl px-6 text-center lg:px-10">
+    <section id="contact" className="relative py-32 bg-[#0a0a0a] overflow-hidden">
+      {/* Premium Spotlight Background */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gold/5 rounded-full blur-[150px] pointer-events-none" />
+
+      <div className="mx-auto max-w-2xl px-6 relative">
         <Reveal>
-          <p className="font-body text-xs uppercase tracking-[0.35em] text-gold">
-            Roll Credits
-          </p>
-          <h2 className="mx-auto mt-4 max-w-2xl font-display text-4xl font-bold leading-tight text-paper sm:text-5xl lg:text-6xl">
-            Let&apos;s make something worth watching
-          </h2>
-          <p className="mx-auto mt-6 max-w-md font-body text-base text-muted">
-            Have a project in mind, or just want to talk shop? The inbox is
-            always open.
-          </p>
+          <h2 className="font-display text-5xl font-bold text-paper text-center">Let's craft your vision</h2>
+          <p className="text-center text-muted mt-6 mb-16">The inbox is always open for exceptional ideas.</p>
         </Reveal>
 
-        <Reveal delay={0.15}>
-          <a
-            href={`mailto:${profile.email}`}
-            className="group mt-10 inline-flex items-center gap-3 font-display text-2xl font-bold text-paper transition-colors hover:text-gold sm:text-3xl"
-          >
-            <Mail className="text-gold" size={26} />
-            {profile.email}
-            <ArrowUpRight
-              className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-              size={22}
-            />
-          </a>
-        </Reveal>
-
-        <Reveal delay={0.25}>
-          <form
-            onSubmit={handleSubmit}
-            className="mx-auto mt-14 grid max-w-xl grid-cols-1 gap-5 text-left sm:grid-cols-2"
-          >
-            <div className="sm:col-span-1">
-              <label className="font-body text-[11px] uppercase tracking-[0.2em] text-muted">
-                Name
-              </label>
-              <input
-                required
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                type="text"
-                placeholder="Your name"
-                className="mt-2 w-full rounded-lg border border-line bg-ink-2 px-4 py-3 font-body text-sm text-paper outline-none placeholder:text-muted/60 focus:border-gold"
-              />
+        <Reveal delay={0.2}>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
+              <input name="name" required placeholder="Name" className="bg-white/5 border border-white/10 rounded-2xl p-4 text-paper placeholder:text-white/20 focus:border-gold outline-none transition-all" />
+              <input name="email" required type="email" placeholder="Email" className="bg-white/5 border border-white/10 rounded-2xl p-4 text-paper placeholder:text-white/20 focus:border-gold outline-none transition-all" />
             </div>
-            <div className="sm:col-span-1">
-              <label className="font-body text-[11px] uppercase tracking-[0.2em] text-muted">
-                Email
-              </label>
-              <input
-                required
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                type="email"
-                placeholder="you@example.com"
-                className="mt-2 w-full rounded-lg border border-line bg-ink-2 px-4 py-3 font-body text-sm text-paper outline-none placeholder:text-muted/60 focus:border-gold"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="font-body text-[11px] uppercase tracking-[0.2em] text-muted">
-                Message
-              </label>
-              <textarea
-                required
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                rows={4}
-                placeholder="Tell me about your project..."
-                className="mt-2 w-full resize-none rounded-lg border border-line bg-ink-2 px-4 py-3 font-body text-sm text-paper outline-none placeholder:text-muted/60 focus:border-gold"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit"
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-gold px-7 py-3.5 font-body text-xs font-semibold uppercase tracking-[0.2em] text-ink"
-              >
-                <Send size={14} />
-                {status === "sent" ? "Message Queued" : "Send Message"}
-              </motion.button>
-            </div>
+            <textarea name="message" required rows={5} placeholder="Tell me about your project..." className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-paper placeholder:text-white/20 focus:border-gold outline-none transition-all" />
+            
+            <motion.button 
+              whileHover={{ scale: 1.02 }}
+              className="w-full bg-gold text-ink font-bold py-4 rounded-2xl uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+            >
+              {status === "loading" ? "Sending..." : status === "sent" ? "Message Delivered" : "Send Inquiry"}
+              {!status.includes("sent") && <Send size={14} />}
+            </motion.button>
           </form>
-        </Reveal>
-
-        <Reveal delay={0.3}>
-          <div className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-            {profile.socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-body text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-gold"
-              >
-                {s.label}
-              </a>
-            ))}
-          </div>
         </Reveal>
       </div>
     </section>

@@ -5,13 +5,13 @@
 // ────────────────────────────────────────────────────────────
 
 export const profile = {
-  name: "Your Name",
-  initials: "YN",
+  name: "Shahzaib Lodhi",
+  initials: "MS",
   role: "Web Developer",
   tagline: "I build fast, cinematic web experiences from script to screen.",
   location: "Karachi, Pakistan",
-  email: "you@example.com",
-  resumeUrl: "#", // link to your PDF resume
+  email: "muhammadshahzaiblodhi@gmail.com",
+  resumeUrl: "/projects/resume.pdf", // link to your PDF resume
   socials: [
     { label: "GitHub", href: "https://github.com/yourusername" },
     { label: "LinkedIn", href: "https://linkedin.com/in/yourusername" },
@@ -23,11 +23,13 @@ export const profile = {
 export const about = {
   eyebrow: "The Director's Note",
   heading: "Behind the scenes of every pixel",
-  paragraphs: [
-    "I'm a web developer who treats every project like a production — a script (the idea), a set (the design), and a crew of clean code that brings it all to life on screen.",
-    "I care about the details that most people never consciously notice: the 200ms of an easing curve, the weight of a heading, the silence before a hover state pays off. That's where a good site becomes a memorable one.",
-    "When I'm not shipping interfaces, I'm reverse-engineering the animations on my favorite websites, sketching layouts, or hunting for the next stack that makes building feel effortless.",
-  ],
+ paragraphs: [
+  "I'm a Full Stack Web Developer who approaches every project like a production—from the first idea and UI design to scalable development and deployment. My goal is to build web experiences that are fast, modern, and memorable.",
+
+  "I focus on the details that users often don't notice consciously—smooth animations, clean layouts, responsive design, accessibility, and performance optimization. Those small details are what transform a good website into an exceptional user experience.",
+
+  "I primarily build full-stack applications using React.js, Next.js, Node.js, MongoDB, and Tailwind CSS. From business websites and admin dashboards to e-commerce platforms and custom web applications, I enjoy turning ideas into reliable, production-ready products.",
+],
   stats: [
     { value: "3+", label: "Years Behind the Scenes" },
     { value: "30+", label: "Productions Shipped" },
@@ -70,53 +72,119 @@ export const skillGroups = [
 export const projects = [
   {
     scene: "01",
-    title: "Project One",
-    year: "2025",
-    genre: ["Next.js", "Tailwind", "Framer Motion"],
+    title: "ZS Digitizing",
+    year: "2026",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Tailwind CSS",
+    ],
+    image: "/projects/zs-digitizing.png",
+     imageMobile: "/projects/zs-digitizingmobile.png",
     description:
-      "A short synopsis of the project — what problem it solved, who it was for, and what made it interesting to build.",
-    liveUrl: "#",
-    codeUrl: "#",
+      "Full-stack business platform with Admin & Client portals, authentication, REST APIs, Cloudinary integration, email automation, responsive UI, and production deployment.",
+    liveUrl: "https://www.zsdigitizing.com",
+    codeUrl: "https://github.com/yourusername/zs-digitizing",
   },
+
   {
     scene: "02",
-    title: "Project Two",
-    year: "2024",
-    genre: ["React", "Node.js", "MongoDB"],
+    title: "Full Stack E-Commerce",
+    year: "2026",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "JWT",
+    ],
+    image: "/projects/eccomerce.png",
+     imageMobile: "/projects/eccomercemobile.png",
     description:
-      "A short synopsis of the project — what problem it solved, who it was for, and what made it interesting to build.",
-    liveUrl: "#",
-    codeUrl: "#",
+      "Production-ready e-commerce platform featuring secure authentication, Admin Dashboard, product management, Google OAuth, Cloudinary, payment integration, and order management.",
+    liveUrl: "https://clotheccomercewebsite.vercel.app",
+    codeUrl: "https://github.com/yourusername/ecommerce",
   },
+
   {
     scene: "03",
-    title: "Project Three",
-    year: "2024",
-    genre: ["Next.js", "REST API", "Auth"],
+    title: "Luxury Restaurant",
+    year: "2026",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Tailwind CSS",
+      "Framer Motion",
+    ],
+    image: "/projects/food.png",
+     imageMobile: "/projects/foodmobile.png",
+
     description:
-      "A short synopsis of the project — what problem it solved, who it was for, and what made it interesting to build.",
-    liveUrl: "#",
-    codeUrl: "#",
+      "Luxury restaurant website with cinematic animations, responsive layouts, reservation system, modern UI, SEO optimization, and smooth user experience.",
+    liveUrl: "https://food-ordering-system-blush-zeta.vercel.app/",
+    codeUrl: "https://github.com/yourusername/restaurant",
   },
+
   {
     scene: "04",
-    title: "Project Four",
-    year: "2023",
-    genre: ["JavaScript", "UI/UX"],
+    title: "WebMashLabs Agency",
+    year: "2026",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Tailwind CSS",
+    ],
+    image: "/projects/webmash.png",
+     imageMobile: "/projects/webmashmobile.png",
+
     description:
-      "A short synopsis of the project — what problem it solved, who it was for, and what made it interesting to build.",
-    liveUrl: "#",
-    codeUrl: "#",
+      "Modern software agency website showcasing services, portfolio, contact system, responsive design, animations, SEO optimization, and high-performance architecture.",
+    liveUrl: "https://webmashlabs.vercel.app",
+    codeUrl: "https://github.com/yourusername/webmashlabs",
   },
-   {
+
+  {
     scene: "05",
-    title: "Project Four",
-    year: "2023",
-    genre: ["JavaScript", "UI/UX"],
+    title: "Gym Fitness Platform",
+    year: "2025",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Tailwind CSS",
+    ],
+    image: "/projects/gym.png",
+     imageMobile: "/projects/gymmobile.png",
+
     description:
-      "A short synopsis of the project — what problem it solved, who it was for, and what made it interesting to build.",
-    liveUrl: "#",
-    codeUrl: "#",
+      "Responsive fitness website with membership plans, trainer profiles, workout programs, contact forms, and modern interactive UI.",
+    liveUrl: "https://gym-demo.vercel.app",
+    codeUrl: "https://github.com/yourusername/gym",
+  },
+
+  {
+    scene: "06",
+    title: "Real Estate Platform",
+    year: "2025",
+    genre: [
+      "Next.js",
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "Tailwind CSS",
+    ],
+    image: "/projects/estate.png",
+     imageMobile: "/projects/estatemobile.png",
+
+    description:
+      "Real estate platform with property listings, advanced search, inquiry forms, responsive design, interactive UI, and optimized performance.",
+    liveUrl: "https://real-estate-demo.vercel.app",
+    codeUrl: "https://github.com/yourusername/real-estate",
   },
 ];
 
@@ -131,19 +199,78 @@ export const nav = [
 ];
 
 export const whyHireMe = [
-  { title: "Pixel-Perfect Execution", description: "Every spacing, easing curve, and breakpoint is intentional — designs ship looking exactly like the mockup, on every screen size." },
-  { title: "Ships On Schedule", description: "Clear timelines, honest estimates, and no vanishing acts. If a deadline moves, you hear about it before it happens, not after." },
-  { title: "Clean, Scalable Code", description: "Readable components, sane folder structure, and no shortcuts that turn into next month's headache for whoever touches the codebase." },
-  { title: "Built To Perform", description: "Fast load times and smooth interactions aren't an afterthought — they're part of the build from the first commit." },
-  { title: "Actually Communicates", description: "Regular updates, screen recordings of progress, and straight answers when something isn't possible — no jargon, no disappearing." },
-  { title: "Cares About The Details", description: "Hover states, empty states, error states — the parts most developers skip are usually the parts I enjoy most." },
+  {
+    title: "Production-Ready Development",
+    description:
+      "I build scalable, maintainable, and production-ready web applications using React.js, Next.js, Node.js, and MongoDB with clean architecture and best practices.",
+  },
+
+  {
+    title: "Performance First",
+    description:
+      "Every project is optimized for fast loading, responsiveness, SEO, accessibility, and smooth user experience across all modern devices.",
+  },
+
+  {
+    title: "Pixel-Perfect UI",
+    description:
+      "I transform Figma and design concepts into responsive, modern interfaces with attention to spacing, typography, animations, and overall user experience.",
+  },
+
+  {
+    title: "Reliable Communication",
+    description:
+      "Clear communication, regular progress updates, and realistic timelines ensure projects move smoothly from planning to successful delivery.",
+  },
+
+  {
+    title: "Problem Solver",
+    description:
+      "I focus on solving business problems instead of only writing code, delivering solutions that improve usability, efficiency, and long-term scalability.",
+  },
+
+  {
+    title: "Long-Term Value",
+    description:
+      "My goal is to deliver clean, reusable, and easy-to-maintain code that allows future features and improvements without unnecessary complexity.",
+  },
 ];
 
 export const services = [
-  { tag: "01", title: "Landing Pages & Marketing Sites", description: "High-converting, animated one-page sites for products, startups, and personal brands — built to load fast and look sharp." },
-  { tag: "02", title: "Full-Stack Web Applications", description: "End-to-end apps with React/Next.js on the front and Node.js/Express on the back, wired to a real database." },
-  { tag: "03", title: "UI/UX To Code", description: "Figma or hand-drawn designs turned into pixel-accurate, responsive, production-ready interfaces." },
-  { tag: "04", title: "Performance & SEO Audits", description: "Speed, accessibility, and search optimization passes that turn a sluggish site into a fast, discoverable one." },
-  { tag: "05", title: "API Integration", description: "Payments, auth, CMS, third-party APIs — connected cleanly and documented so your team isn't guessing later." },
-  { tag: "06", title: "Ongoing Maintenance", description: "Bug fixes, dependency updates, and small feature additions on a retainer, so the site keeps running smoothly after launch." },
+  {
+    tag: "01",
+    title: "Modern Business Websites",
+    description:
+      "Fast, responsive, and premium websites for startups, agencies, restaurants, gyms, and real estate businesses built with React and Next.js.",
+  },
+  {
+    tag: "02",
+    title: "Full-Stack Web Applications",
+    description:
+      "Scalable web applications with Next.js, Node.js, Express, MongoDB, secure authentication, dashboards, and REST APIs.",
+  },
+  {
+    tag: "03",
+    title: "Admin Dashboards",
+    description:
+      "Custom admin panels for managing products, users, orders, bookings, analytics, and business operations with role-based access.",
+  },
+  {
+    tag: "04",
+    title: "API & Third-Party Integration",
+    description:
+      "Integration of payment gateways, Google OAuth, Cloudinary, email automation, maps, and other third-party APIs.",
+  },
+  {
+    tag: "05",
+    title: "Performance & SEO Optimization",
+    description:
+      "Improve loading speed, Core Web Vitals, accessibility, SEO, and overall user experience for better business results.",
+  },
+  {
+    tag: "06",
+    title: "Deployment & Maintenance",
+    description:
+      "Deploy applications on Vercel, manage domains and DNS, fix bugs, add new features, and provide ongoing support.",
+  },
 ];
