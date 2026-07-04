@@ -9,6 +9,15 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Scroll lock jab menu open ho
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [open]);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll);
@@ -40,7 +49,6 @@ export default function Navbar() {
                 href={item.href}
                 className="group relative font-body text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:text-paper"
               >
-                
                 {item.label}
                 <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold transition-all duration-300 group-hover:w-full" />
               </a>
@@ -70,9 +78,10 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-ink/98 backdrop-blur-lg md:hidden"
+            // Yahan background black/ink ka opaque effect hai
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ink md:hidden"
           >
-            <div className="flex justify-end px-6 py-5">
+            <div className="absolute right-6 top-5">
               <button
                 onClick={() => setOpen(false)}
                 className="text-paper"
@@ -81,8 +90,9 @@ export default function Navbar() {
                 <X size={26} />
               </button>
             </div>
+            
             <motion.ul
-              className="flex flex-col items-center justify-center gap-8 pt-12"
+              className="flex flex-col items-center gap-8"
               initial="hidden"
               animate="show"
               variants={{
@@ -101,9 +111,8 @@ export default function Navbar() {
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="font-display text-3xl uppercase tracking-widest text-paper"
+                    className="font-display text-3xl uppercase tracking-widest text-paper hover:text-gold transition-colors"
                   >
-                    <span className="mr-3 text-gold">0{i + 1}</span>
                     {item.label}
                   </a>
                 </motion.li>

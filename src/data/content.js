@@ -7,8 +7,8 @@
 export const profile = {
   name: "Shahzaib Lodhi",
   initials: "MS",
-  role: "Web Developer",
-  tagline: "I build fast, cinematic web experiences from script to screen.",
+  role: "Full Stack Web Developer",
+  tagline: "Crafting high-performance, cinematic web experiences from the first line of code to the final deployment",
   location: "Karachi, Pakistan",
   email: "muhammadshahzaiblodhi@gmail.com",
   resumeUrl: "/projects/resume.pdf", // link to your PDF resume

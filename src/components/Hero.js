@@ -77,7 +77,7 @@ export default function Hero() {
           <div className="flex items-center justify-between gap-10">
             <div>
               <p className="text-xs uppercase tracking-[.4em] text-yellow-400">CURRENT STACK</p>
-              <h2 className="mt-3 font-semibold">React • Next • Node • MongoDB</h2>
+              <h2 className="mt-3 font-semibold">React • Next • Node • MongoDB • Express • Wordpress </h2>
             </div>
             <div className="h-16 w-px bg-white/10"/>
             <div>
