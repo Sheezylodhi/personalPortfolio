@@ -23,9 +23,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
-      <body className="bg-ink text-paper antialiased vignette">
+      {/* overflow-x-hidden yahan add karein */}
+      <body className="bg-ink text-paper antialiased vignette overflow-x-hidden">
         <FilmGrain />
-        {children}
+        <main className="w-full max-w-[100vw] overflow-hidden">
+          {children}
+        </main>
       </body>
     </html>
   );

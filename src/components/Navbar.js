@@ -9,7 +9,6 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Scroll lock jab menu open ho
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
@@ -26,24 +25,25 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-[100] transition-all duration-500 ${
         scrolled
-          ? "bg-ink/80 backdrop-blur-md border-b border-line"
+          ? "bg-ink/90 backdrop-blur-md border-b border-line"
           : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 lg:px-10">
+      <nav className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5 lg:px-10">
         <a
           href="#home"
-          className="flex items-center gap-2 font-display text-sm tracking-[0.2em] text-paper"
+          className="flex items-center gap-2 font-display text-sm tracking-[0.2em] text-paper z-[101]"
         >
           <Clapperboard size={18} className="text-gold" strokeWidth={1.5} />
           {profile.initials}
-          <span className="text-muted">/DEV</span>
+          <span className="text-muted hidden sm:inline-block">/DEV</span>
         </a>
 
-        <ul className="hidden items-center gap-9 md:flex">
-          {nav.map((item, i) => (
+        {/* Desktop Menu */}
+        <ul className="hidden items-center gap-8 md:flex">
+          {nav.map((item) => (
             <li key={item.href}>
               <a
                 href={item.href}
@@ -56,51 +56,43 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className="hidden rounded-full border border-gold/60 px-5 py-2 font-body text-xs uppercase tracking-[0.15em] text-gold transition-all hover:bg-gold hover:text-ink md:inline-block"
-        >
-          Hire Me
-        </a>
-
+        {/* Mobile Toggle Button */}
         <button
           onClick={() => setOpen(true)}
-          className="text-paper md:hidden"
+          // Yahan change kiya hai: {open ? "hidden" : "block"}
+          className={`text-paper md:hidden p-2 z-[101] ${open ? "hidden" : "block"}`}
           aria-label="Open menu"
         >
-          <Menu size={26} />
+          <Menu size={28} />
         </button>
       </nav>
 
+      {/* Fullscreen Mobile Menu */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            // Yahan background black/ink ka opaque effect hai
-            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-ink md:hidden"
+            className="fixed inset-0 z-[100] flex h-dvh w-full flex-col items-center justify-center bg-ink md:hidden"
           >
-            <div className="absolute right-6 top-5">
-              <button
-                onClick={() => setOpen(false)}
-                className="text-paper"
-                aria-label="Close menu"
-              >
-                <X size={26} />
-              </button>
-            </div>
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute right-6 top-6 text-paper p-2 z-[102]"
+              aria-label="Close menu"
+            >
+              <X size={32} />
+            </button>
             
             <motion.ul
               className="flex flex-col items-center gap-8"
               initial="hidden"
               animate="show"
               variants={{
-                hidden: {},
-                show: { transition: { staggerChildren: 0.08 } },
+                show: { transition: { staggerChildren: 0.1 } },
               }}
             >
-              {nav.map((item, i) => (
+              {nav.map((item) => (
                 <motion.li
                   key={item.href}
                   variants={{

@@ -10,6 +10,10 @@ html,
 body {
   background-color: #0a0a0d;
   color: #f3efe6;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
